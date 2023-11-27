@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TP JS2</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Blog DWM</h1>
+      <div class="row articles">
+        <!-- Afficher ici les posts sous forme de cartes -->
+      </div>
+      <div class="row">(Facultatif) mettre ici le système de pagination</div>
+      <div class="row articles">
+        <!-- Afficher ici les commentaires du post sélectionné -->
+      </div>
+    </div>
+
+    <!-- Templates à cloner pour affciher les Posts -->
+    <div id="templates" style="display: none">
+      <div id="Id_du_post" class="card ....">
+        <img
+          src="https://picsum.photos/600/400?post_id"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">
+            <!-- Titre du post -->
+          </h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            <!-- Auteur du post username            -->
+          </h6>
+          <p class="card-text">
+            <!-- Ici le contenu tronqué du post -->
+          </p>
+          <a href="#id_du_post" class="btn btn-primary">
+            <!-- Afficher les commentaires du post -->
+          </a>
+        </div>
+      </div>
+      <!-- Choisir un template adapté pour les commentaires -->
+    </div>
+
+  </body>
+</html>
