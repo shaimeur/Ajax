@@ -1,38 +1,64 @@
- /********************************************
-        Ecrire ici le code permettant
-            1 - de récupérer tous les Posts, Users et Comments
-            2 - de convertir les trois réponses en tableaux :
-                * users
-                * posts
-                * comments
-            3 - de créer un nouveau tableau nommé allPosts sous la forme :
-                [
-                    {
-                        id : 1,
-                        userName : 'toto',
-                        title : 'un article',
-                        body : 'le corps de l\'article',
-                        published : true,
-                        comments : [{...}, ...]
-                    },
-                    ...
-                ]
-            4 - Créer les fonctions utilitaires suivantes :
-                    4-1 sortByUserName() qui permet de trier par utilsateur
-                    4-2 sortByPostTitle() qui permet de trier par le titre du Post
-                    4-3 getPagePosts(offset, size = 10) qui retourne un nouveau tableau extrait du tableau allPosts à partir de offset et contenant size éléments
-            5 - Ecrire la fonction showPosts() qui permettra d'afficher les 10 premiers posts
-            6 - Ecrire la fonction showComments(postId) qui permet d'afficher les commentaires
-            de le Post ayant l'id postId
-            7 - (facultatif) Ajouter une pagination
-            8 - ...
-            9 - ....
-            10 - .....
-        *********************************************/
-            const URL_USERS = "https://jsonplaceholder.typicode.com/users";
-            const URL_POSTS = "https://jsonplaceholder.typicode.com/posts";
-            const URL_COMMENTS = "https://jsonplaceholder.typicode.com/comments";
-            var offset = 0,
-              size = 10;
+ const URL_USERS = `https://jsonplaceholder.typicode.com/users`;
+const URL_POSTS = "https://jsonplaceholder.typicode.com/posts";
+const URL_COMMENTS = "https://jsonplaceholder.typicode.com/comments";
+var offset = 0,
+size = 10;
+
+users = []
+let posts = []
+let comments = []
+const fetchUsers = async() => {
+    try {
+        const  res = await fetch(URL_USERS)
+        const data = await res.json()
+
+            for(let el of data){
+                users.push(el)
+            }
+            return users
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        throw error
+    }
+}
 
 
+const fetchPosts  = async() => {
+    try {
+        const  res = await fetch(URL_POSTS)
+        const data = await res.json()
+
+            for(let el of data){
+                posts.push(el)
+            }
+            return posts
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+        throw error
+    }
+}
+const fetchComments  = async() => {
+    try {
+        const  res = await fetch(URL_COMMENTS)
+        const data = await res.json()
+
+            for(let el of data){
+                comments.push(el)
+            }
+            return comments
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+        throw error
+    }
+}
+const fetchedData = async ()=>{
+        try {
+            await Promise.all([fetchUsers(),fetchPosts(),fetchComments()])
+            console.log("users ====> ",users)
+            console.log("posts =====> ",posts)
+            console.log("comments =====> ",comments)
+        } catch (error) {
+            console.log("Error fetching data",error)
+        }
+}
+fetchedData()
