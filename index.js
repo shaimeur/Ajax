@@ -1,8 +1,12 @@
- const URL_USERS = `https://jsonplaceholder.typicode.com/users`;
+const URL_USERS = `https://jsonplaceholder.typicode.com/users`;
 const URL_POSTS = "https://jsonplaceholder.typicode.com/posts";
 const URL_COMMENTS = "https://jsonplaceholder.typicode.com/comments";
-var offset = 0,
+const  offset = 0;
 size = 10;
+
+// const URL_POSTS = `https://jsonplaceholder.typicode.com/posts?_start=${offset}&_limit=${size}`;
+// const URL_COMMENTS = `https://jsonplaceholder.typicode.com/comments?_start=${offset}&_limit=${size}`;
+
 
 let users = []
 let posts = []
@@ -21,6 +25,7 @@ const fetchUsers = async () => {
         throw error
     }
 }
+
 
 
 const fetchPosts  = async() => {
@@ -51,18 +56,32 @@ const fetchComments  = async() => {
         throw error
     }
 }
+const sortByUserName = (arr)=>{
+    return arr.sort((a,b)=>( a.userName.toLowerCase() < b.userName.toLowerCase() ? -1 :1
+    ))
+}
+
+ const sortByPostTitle =  (arr)=>{
+    return arr.sort((a,b)=>( a.title.toLowerCase() < b.title.toLowerCase() ? -1 :1
+    ))
+}
+const showPosts = (arr)=>{
+    return arr.slice(0,10)
+}
+
 const fetchedData = async ()=>{
         try {
             await Promise.all([fetchUsers(),fetchPosts(),fetchComments()])
-            console.log(posts)
-            console.log(users)
-            console.log(comments)
+            // console.log(users)
+            // console.log(posts)
+            // console.log(comments)
            const allPost = posts.map((post) =>{
                 const user = users.find((user => user.id == post.userId ))
                 const postComment = comments.filter(comment => comment.postId == post.id )
 
             return {
                 id:user.id,
+                userName : user.username,
                 title : post.title,
                 body : post.body,
                 published : true,
@@ -73,7 +92,10 @@ const fetchedData = async ()=>{
                 })
             }
            })
-            console.log(allPost)
+            //console.log(sortByUserName(allPost))
+            // console.log(sortByPostTitle(allPost))
+            // console.log(showPosts(allPost))
+
         } catch (error) {
             console.log("Error fetching data",error)
         }
