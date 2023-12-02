@@ -4,10 +4,10 @@ const URL_COMMENTS = "https://jsonplaceholder.typicode.com/comments";
 var offset = 0,
 size = 10;
 
-users = []
+let users = []
 let posts = []
 let comments = []
-const fetchUsers = async() => {
+const fetchUsers = async () => {
     try {
         const  res = await fetch(URL_USERS)
         const data = await res.json()
@@ -54,11 +54,42 @@ const fetchComments  = async() => {
 const fetchedData = async ()=>{
         try {
             await Promise.all([fetchUsers(),fetchPosts(),fetchComments()])
-            console.log("users ====> ",users)
-            console.log("posts =====> ",posts)
-            console.log("comments =====> ",comments)
+            console.log(posts)
+            console.log(users)
+            console.log(comments)
+           const allPost = posts.map((post) =>{
+                const user = users.find((user => user.id == post.userId ))
+                const postComment = comments.filter(comment => comment.postId == post.id )
+
+            return {
+                id:user.id,
+                title : post.title,
+                body : post.body,
+                published : true,
+                comments: postComment.map((comment)=>{
+                    return (
+                            comment.body
+                    )
+                })
+            }
+           })
+            console.log(allPost)
         } catch (error) {
             console.log("Error fetching data",error)
         }
 }
 fetchedData()
+
+/*
+ [
+                    {
+                        id : 1,
+                        userName : 'toto',
+                        title : 'un article',
+                        body : 'le corps de l\'article',
+                        published : true,
+                        comments : [{...}, ...]
+                    },
+                    ...
+                ]
+*/
