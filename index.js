@@ -75,7 +75,7 @@ const fetchedData = async ()=>{
             // console.log(users)
             // console.log(posts)
             // console.log(comments)
-           const allPost = posts.map((post) =>{
+           let allPost = posts.map((post) =>{
                 const user = users.find((user => user.id == post.userId ))
                 const postComment = comments.filter(comment => comment.postId == post.id )
 
@@ -92,9 +92,28 @@ const fetchedData = async ()=>{
                 })
             }
            })
+           console.log(allPost)
             //console.log(sortByUserName(allPost))
             // console.log(sortByPostTitle(allPost))
             // console.log(showPosts(allPost))
+            const container = document.createElement("div")
+            container.setAttribute("class","container")
+
+            for(let post of allPost){
+                container.innerHTML = `
+                <div class="card">
+
+                    <div class="title">${post.title}</div><br>
+                    <div class="body">${post.body}</div>
+                    <span>${post.userName}</span>
+
+                </div>
+
+        `
+            }
+
+
+            document.body.append(container)
 
         } catch (error) {
             console.log("Error fetching data",error)
@@ -102,16 +121,5 @@ const fetchedData = async ()=>{
 }
 fetchedData()
 
-/*
- [
-                    {
-                        id : 1,
-                        userName : 'toto',
-                        title : 'un article',
-                        body : 'le corps de l\'article',
-                        published : true,
-                        comments : [{...}, ...]
-                    },
-                    ...
-                ]
-*/
+
+
