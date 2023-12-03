@@ -100,20 +100,17 @@ const fetchedData = async ()=>{
             container.setAttribute("class","container")
 
             for(let post of allPost){
-                container.innerHTML = `
-                <div class="card">
-
+                const card = document.createElement("card")
+                card.setAttribute("class","card")
+                card.innerHTML = `
                     <div class="title">${post.title}</div><br>
                     <div class="body">${post.body}</div>
                     <span>${post.userName}</span>
-
-                </div>
-
         `
+        container.append(card)
             }
 
-
-            document.body.append(container)
+        document.body.append(container)
 
         } catch (error) {
             console.log("Error fetching data",error)
