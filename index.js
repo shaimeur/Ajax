@@ -26,6 +26,9 @@ const fetchUsers = async () => {
     }
 }
 
+// function fetchUsers(){
+
+// }
 
 
 const fetchPosts  = async() => {
@@ -78,7 +81,7 @@ const fetchedData = async ()=>{
            let allPost = posts.map((post) =>{
                 const user = users.find((user => user.id == post.userId ))
                 const postComment = comments.filter(comment => comment.postId == post.id )
-
+                console.log(postComment)
             return {
                 id:user.id,
                 userName : user.username,
@@ -92,7 +95,7 @@ const fetchedData = async ()=>{
                 })
             }
            })
-           console.log(allPost)
+        //    console.log(allPost)
             //console.log(sortByUserName(allPost))
             // console.log(sortByPostTitle(allPost))
             // console.log(showPosts(allPost))
@@ -106,6 +109,10 @@ const fetchedData = async ()=>{
                     <div class="title">${post.title}</div><br>
                     <div class="body">${post.body}</div>
                     <span>${post.userName}</span>
+                    <ul>
+                    ${post.comments.map(comment => `<li>${comment}</li>`).join('')}
+                </ul>
+
         `
         container.append(card)
             }
